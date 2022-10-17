@@ -6,7 +6,7 @@ Convert, backup and restore configuration data of devices flashed with [Tasmota 
 <img src="https://github.com/tasmota/decode-config/blob/master/media/pic/decode-config.png" alt="Overview" title="decode-config Overview" width="600">
 
 <!-- markdownlint-disable MD033 -->
-[![master](https://img.shields.io/badge/master-v12.1.1.0-blue.svg)](https://github.com/tasmota/decode-config/tree/master)
+[![master](https://img.shields.io/badge/master-v12.2.0.0-blue.svg)](https://github.com/tasmota/decode-config/tree/master)
 [![GitHub download](https://img.shields.io/github/downloads/tasmota/decode-config/total.svg)](https://github.com/tasmota/decode-config/releases/latest)
 [![PyPI version](https://badge.fury.io/py/decode-config.svg)](https://badge.fury.io/py/decode-config)
 ![PyPI downloads](https://img.shields.io/pypi/dm/decode-config?label=pypi%20downloads)
@@ -40,10 +40,10 @@ Comparing backup files created by **decode-config** and [.dmp](#dmp-format) file
 
 ## Development
 
-It is not necessary to use the developer version of decode-config if you are using a release from Tasmota. Only if you are also using the latest developer version of tasmota, you should also use the latest developer version of decode-config.
+Using the latest development version of decode-config is only necessary if you also use the latest development version of Tasmota.
 
 <!-- markdownlint-disable MD033 -->
-[![development version](https://img.shields.io/badge/development-v12.1.1.1-blue.svg)](https://github.com/tasmota/decode-config/tree/development)
+[![development version](https://img.shields.io/badge/development-latest-blue.svg)](https://github.com/tasmota/decode-config/tree/development)
 
 ## Content
 
@@ -435,9 +435,9 @@ Screen output is suppressed when using backup or restore parameter. In that case
 
 The console screen output supports two formats:
 
-* [JSON](#console-json-format):<br>
+* [JSON](#json-format):<br>
 This is identical with the backup/restore [json file Format](#json-format) but printed on screen standard output.
-* [Tasmota command](#console-tasmota-command-format):<br>
+* [Tasmota command](#tasmota-web-command-format):<br>
 This outputs the most (but not all!) configuration data as Tasmota [web-console commands](https://tasmota.github.io/docs/Commands/).
 
 #### JSON format
@@ -687,7 +687,7 @@ This format uses the [JSON](http://www.json.org/) notation and contains the comp
 
 The .json format can be created by **decode-config** using the backup function (`--backup-file <filename>`) (for better identification you can append the optional parameter `--backup-type json`, but that's optional as json is the default backup format).
 
-In contrast to the other two binary formats [.dmp](#dmp-format) and [.bin](#bin-format), this type of format also allows the [partial modification](#restore-a-subset-of-backup-data) of configurations.
+In contrast to the other two binary formats [.dmp](#dmp-format) and [.bin](#bin-format), this type of format also allows the [partial modification](#restore-subset-of-data) of configurations.
 
 > **Note**  
 The keys used within the JSON file are based on the variable names of Tasmota source code in [settings.h](https://github.com/arendst/Tasmota/blob/master/tasmota/include/tasmota_types.h) so they do not have the same naming as known for Tasmota web commands. However, since the variable names are self-explanatory, there should be no difficulties in assigning the functionality of the variables.
@@ -922,11 +922,11 @@ These Tasmota commands are unsupported and not implemented in **decode-config**
 |                | WCAECValue<sup>2</sup>      |                        |             |
 |                | WCAELevel<sup>2</sup>       |                        |             |
 |                | WCAGCGain<sup>2</sup>       |                        |             |
-|                | WCSAuth<sup>2</sup>         |                        |             |
 |                | WCAWB<sup>2</sup>           |                        |             |
 |                | WCAWBGain<sup>2</sup>       |                        |             |
 |                | WCBPC<sup>2</sup>           |                        |             |
 |                | WCBrightness<sup>2</sup>    |                        |             |
+|                | WCClock<sup>2</sup>         |                        |             |
 |                | WCColorbar<sup>2</sup>      |                        |             |
 |                | WCContrast<sup>2</sup>      |                        |             |
 |                | WCDCW<sup>2</sup>           |                        |             |
@@ -938,6 +938,7 @@ These Tasmota commands are unsupported and not implemented in **decode-config**
 |                | WCMirror<sup>2</sup>        |                        |             |
 |                | WCResolution<sup>2</sup>    |                        |             |
 |                | WCRtsp<sup>2</sup>          |                        |             |
+|                | WCSAuth<sup>2</sup>         |                        |             |
 |                | WCSaturation<sup>2</sup>    |                        |             |
 |                | WCSpecialEffect<sup>2</sup> |                        |             |
 |                | WCStream<sup>2</sup>        |                        |             |
@@ -980,6 +981,7 @@ These Tasmota commands are unsupported and not implemented in **decode-config**
 |                | TimeSTD                     |                        |             |
 |                | TimeDST                     |                        |             |
 |                | Timezone                    |                        |             |
+|                | TouchThres<sup>2</sup>      |                        |             |
 |                | TuyaMCU                     |                        |             |
 |                | TuyaTempSetRes              |                        |             |
 |                | WebLog                      |                        |             |
