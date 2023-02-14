@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 METADATA = {
-    'VERSION': '12.3.1.0',
+    'VERSION': '12.3.1.6',
     'DESCRIPTION': 'Backup/restore and decode configuration tool for Tasmota',
     'CLASSIFIER': 'Development Status :: 5 - Production/Stable',
     'URL': 'https://github.com/tasmota/decode-config',
@@ -1042,6 +1042,7 @@ SETTING_6_3_0.update                ({
 # ======================================================================
 SETTING_6_3_0_2 = copy.deepcopy(SETTING_6_3_0)
 SETTING_6_3_0_2.update              ({
+    'timezone':                     (HARDWARE.ESP,   'b',   0x016,       (None, '-13 <= $ <= 13 or $==99',      ('Management',  '"Timezone {}".format($ if @["timezone_minutes"]==0 else "{}:{}".format($, @["timezone_minutes"]))')) ),
     'timezone_minutes':             (HARDWARE.ESP,   'B',   0x66D,       (None, None,                           (INTERNAL,      None)) ),
                                     })
 SETTING_6_3_0_2['flag'][1].pop('rules_once',None)
@@ -2697,10 +2698,23 @@ SETTING_12_2_0_6.update             ({
     'shutter_motorstop':            (HARDWARE.ESP,   '<H',  0x738,       (None, None,                           ('Shutter',     '"ShutterMotorStop {}".format($)')) ),
                                     })
 # ======================================================================
-SETTING_12_3_1_0 = copy.deepcopy(SETTING_12_2_0_6)
+SETTING_12_3_1_1 = copy.deepcopy(SETTING_12_2_0_6)
+SETTING_12_3_1_1['flag6'][1].update({
+        'dns_ipv6_priority':        (HARDWARE.ESP,   '<L', (0xF74,1, 3), (None, None,                           ('SetOption',   '"SO149 {}".format($)')) ),
+                                    })
+# ======================================================================
+SETTING_12_3_1_5 = copy.deepcopy(SETTING_12_3_1_1)
+SETTING_12_3_1_5['flag6'][1].update({
+        'no_voltage_common':        (HARDWARE.ESP,   '<L', (0xF74,1, 4), (None, None,                           ('SetOption',   '"SO150 {}".format($)')) ),
+        'matter_enabled':           (HARDWARE.ESP,   '<L', (0xF74,1, 5), (None, None,                           ('SetOption',   '"SO151 {}".format($)')) ),
+                                    })
+# ======================================================================
+SETTING_12_3_1_6 = copy.deepcopy(SETTING_12_3_1_5)
 # ======================================================================
 SETTINGS = [
-            (0x0C030100,0x1000, SETTING_12_3_1_0),
+            (0x0C030106,0x1000, SETTING_12_3_1_6),
+            (0x0C030105,0x1000, SETTING_12_3_1_5),
+            (0x0C030101,0x1000, SETTING_12_3_1_1),
             (0x0C020006,0x1000, SETTING_12_2_0_6),
             (0x0C020005,0x1000, SETTING_12_2_0_5),
             (0x0C020004,0x1000, SETTING_12_2_0_4),
